@@ -136,5 +136,10 @@ def settings():
     
     return render_template('settings.html', users=users_in_db, form=form)
 
+@app.route('/dashboard_boot')
+@login_required
+def dashboard_boot():
+    return render_template('dashboard_boot.html', name=current_user.username)
+
 if __name__ == '__main__':
     app.run(debug=True)
