@@ -82,7 +82,8 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 login_user(user, remember=form.remember.data)
                 return redirect(url_for('dashboard'))
-        return  ' <h1> invalidate username or password! </h1>'
+        error = 'Username o password errati!'
+        return render_template('login.html', error=error, form=form)
     return render_template('login.html', form=form)
 
 
