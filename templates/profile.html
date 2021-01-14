@@ -17,14 +17,17 @@ Dashboard
       
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Questo è il profile di {{ name }}</h1>
-
-          <h3>Questi sono i dati</h3>
-          <ul>
-            <li>Nome: {{ name }} </li>
-            <li>Email: {{ email }} </li>
-            <li>Admin: {% if isadmin == 1 %} Sì {% else %} No {% endif %} </li>
+          <div class="container">
+            <h3>Questi sono i dati</h3>
+              <ul>
+                <li>Nome: {{ name }} </li>
+                <li>Email: {{ email }} </li>
+                <li>Admin: {% if isadmin == 1 %} Sì {% else %} No {% endif %} </li>
+              
+              </ul>
+          </div>
           
-          </ul>
+          
 
          
         </div>

@@ -119,12 +119,22 @@ def profile():
     return render_template('profile.html', name=current_user.username,
                            email=current_user.email, admin = current_user.isadmin)
     
-@app.route('/settings')
+@app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     users_in_db = User.query.filter().all()
     
-    return render_template('settings.html', users=users_in_db)
+    form = RegisterForm()
+
+    if form.validate_on_submit():
+        hashed_password = generate_password_hash(form.password.data, method='sha256')
+        new_user = User(username=form.username.data, email=form.email.data, password=hashed_password, isadmin=1)
+        db.session.add(new_user)
+        db.session.commit()
+        
+        return redirect(url_for('settings'))
+    
+    return render_template('settings.html', users=users_in_db, form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
