@@ -1,33 +1,26 @@
-{% extends "bootstrap/base.html" %}
+{% include "header.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
 
+<body>
+  {% include 'navbar.html' with context%}
 
-{% block title %}
-Dashboard
-{% endblock %}
+  <div class="container-fluid dashboard_content">
+    <div class="row">
+      {% include 'sidebar.html' with context %}
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
-{% endblock %}
-
-{% block content %}
-{% include 'navbar.html' with context%}
-
-<div class="container-fluid">
-  {% include 'sidebar.html' with context %}
-
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 border-bottom">
     <h1 class="page-header">Tabella degli utenti presenti in db</h1>
 
     <div class="container">
+      
       <table class="table">
 
-        <thead>
+        <thead class="table-dark">
           <tr>
-            <td scope='col'> Username </td>
-            <td scope='col'> Email </td>
-            <td scope='col'> Admin </td>
+            <th scope='col'> Username </th>
+            <th scope='col'> Email </th>
+            <th scope='col'> Admin </th>
+            <th scope='col'></th>
           </tr>
         </thead>
 
@@ -37,12 +30,16 @@ Dashboard
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
           <td>{% if user.isadmin == 0 %} No {% else %} Sì {% endif %}</td>
+          <td><a href="#"><button class="btn btn-outline-danger"><i class="bi bi-trash"></i></button></a></td>
         </tr>
         {% endfor %}
         <table>
     </div>
-    <div class="container-fluid">
 
+
+
+    <div class="container-fluid">
+  
       <form class="form-add-admin" method="POST" action="/settings">
         <h2 class="form-add-admin-heading">Aggiungi un admin</h2>
           {{ form.hidden_tag() }}
@@ -58,4 +55,4 @@ Dashboard
   </div>
 </div>
 </div>
-{% endblock %}
+{% include "footer.html" %}

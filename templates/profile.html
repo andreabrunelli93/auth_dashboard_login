@@ -1,36 +1,28 @@
-{% extends "bootstrap/base.html" %}
+{% include "header.html" %}
 
-{% block title %}
-Dashboard
-{% endblock %}
 
-{% block styles %}
-{{super()}}
-<link rel="stylesheet" href="{{url_for('.static', filename='dashboard.css')}}">
-{% endblock %}
+<body>
+  {% include 'navbar.html' with context%}
 
-{% block content %}
-{% include 'navbar.html' with context%}
-
-    <div class="container-fluid">
+  <div class="container-fluid dashboard_content">
+    <div class="row">
       {% include 'sidebar.html' with context %}
-      
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Questo è il profile di {{ name }}</h1>
-          <div class="container">
+     
+      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 border-bottom">
+          <br>
+          <h1 class="page-header">Questo è il profilo di {{ name | capitalize }}</h1>
+          
             <h3>Questi sono i dati</h3>
               <ul>
-                <li>Nome: {{ name }} </li>
+                <li>Nome: {{ name | capitalize }} </li>
                 <li>Email: {{ email }} </li>
                 <li>Admin: {% if isadmin == 1 %} Sì {% else %} No {% endif %} </li>
               
               </ul>
-          </div>
-          
-          
+      </main>
 
-         
-        </div>
-      </div>
-    </div>
-{% endblock %}
+    {% include "footer.html" %}
+
+
+
+    

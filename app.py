@@ -60,10 +60,10 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    email = StringField('email', validators=[InputRequired(), Email(message='Invalid email'), Length(min=4, max=50)])
-    username = StringField('username', validators=[
+    email = StringField('Email', validators=[InputRequired(), Email(message='Invalid email'), Length(min=4, max=50)])
+    username = StringField('Username', validators=[
                            InputRequired(), Length(min=4, max=15)])
-    password = PasswordField('password', validators=[
+    password = PasswordField('Password', validators=[
                              InputRequired(), Length(min=8, max=80)])
 
 

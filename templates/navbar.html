@@ -8,9 +8,18 @@
   </button>
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
+    {% if current_user is true %}
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="/signout">Sign out</a>
+      </li>
+    {% else %}
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="/signout">Sign out</a>
+      <a class="nav-link" href="/login">Sign In</a>
     </li>
+    {% endif %}
+
+    
+    
   </ul>
 </header>
 {% endblock %}
