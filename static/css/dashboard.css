@@ -8,6 +8,13 @@ body {
   vertical-align: text-bottom;
 }
 
+/*** WELCOME PAGE ***/
+
+.image-index{
+  width: 30%;
+  align-items: center;
+}
+
 /*
  * Sidebar
  */
