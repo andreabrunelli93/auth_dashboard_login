@@ -8,12 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
-import dash
-import dash_core_components as dcc
-import dash_html_components as html
-import plotly.express as px
-import pandas as pd
-
 from flask_migrate import Migrate
 
 import os
@@ -111,7 +105,8 @@ def signup():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', name=current_user.username)
+    test = 150;
+    return render_template('dashboard.html', name=current_user.username, test=test)
 
 @app.route('/logout')
 @login_required
