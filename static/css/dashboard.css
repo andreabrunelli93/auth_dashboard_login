@@ -72,6 +72,14 @@ body {
   text-transform: uppercase;
 }
 
+.nav-item{
+  font-size: 1.2rem;
+}
+
+.flex-column{
+  padding-left: 15px;
+}
+
 /*
  * Navbar
  */
@@ -113,8 +121,18 @@ body {
 }
 
 
+
 /*** DASHBOARD ***/
 
 .dashboard_content{
-  margin-top: 50px;
+  margin-top: 30px;
+}
+
+
+/*** MAP ***/
+
+#chartdiv {
+  max-width: 100%;
+  height: 100%;
+  background-color:#fbebdb;
 }
