@@ -17,3 +17,4 @@ def get_data():
 test = get_data()
 
 print(test.text)
+
