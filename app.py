@@ -15,6 +15,7 @@ import os
 import pandas as pd
 
 from tools.get_last_data import get_last_data
+from tools.get_last_regioni import get_last_regioni
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -114,6 +115,8 @@ def dashboard():
     total_positive = last_data['totale_positivi_test_molecolare'][0]
     ricoverati_con_sintomi = last_data['ricoverati_con_sintomi'][0]
     terapia_intensiva = last_data['terapia_intensiva'][0]
+    
+    regioni = get_last_regioni()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
                            ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva)
 
