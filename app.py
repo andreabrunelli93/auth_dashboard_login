@@ -12,6 +12,10 @@ from flask_migrate import Migrate
 
 import os
 
+import pandas as pd
+
+from tools.get_last_data import get_last_data
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 #SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI') or \'sqlite:///' + os.path.join(basedir, 'database.db')
@@ -105,8 +109,13 @@ def signup():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    test = 150;
-    return render_template('dashboard.html', name=current_user.username, test=test)
+    last_data = get_last_data()
+    update = last_data['data'][0]
+    total_positive = last_data['totale_positivi_test_molecolare'][0]
+    ricoverati_con_sintomi = last_data['ricoverati_con_sintomi'][0]
+    terapia_intensiva = last_data['terapia_intensiva'][0]
+    return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
+                           ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva)
 
 @app.route('/logout')
 @login_required
@@ -137,10 +146,6 @@ def settings():
     
     return render_template('settings.html', users=users_in_db, form=form)
 
-@app.route('/dashboard_boot')
-@login_required
-def dashboard_boot():
-    return render_template('dashboard_boot.html', name=current_user.username)
 
 if __name__ == '__main__':
     app.run(debug=True)

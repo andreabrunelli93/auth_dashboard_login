@@ -27,44 +27,79 @@
           <div class="col">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <canvas class="my-4 w-120" id="myChart"></canvas>
+                <h5 class="card-title">Ricoverati con Sintomi</h5>
+                <h4>{{ ricoverati_con_sintomi }}</h4>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <div id="chartdiv"></div>
+                <h5 class="card-title">Terapia intensiva</h5>
+                <h4>{{ terapia_intensiva }}</h4>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
               </div>
             </div>
           </div>
           <div class="col">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional
-                  content. This card has even longer content than the first to show that equal height action.</p>
+                <h5 class="card-title">Totale contagi Italia</h5>
+                <h4>{{ total_positive }}</h4>
               </div>
               <div class="card-footer">
-                <small class="text-muted">Last updated 3 mins ago</small>
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
               </div>
             </div>
           </div>
         </div>
         <br>
 
-        <script>
-          var data_ita = {{ test }}; 
-        </script>
-    
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <canvas class="my-4 w-120" id="myChart"></canvas>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Totale contagi Italia</h5>
+                <h4>{{ total_positive }}</h4>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+
+        
+        
+
         <h2>Section title</h2>
         <div class="table-responsive">
           <table class="table table-striped table-sm">
