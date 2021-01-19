@@ -35,8 +35,17 @@ polygonSeries.heatRules.push({
 // Make map load polygon data (state shapes and names) from GeoJSON
 polygonSeries.useGeodata = true;
 
+var size = Object.keys(data_regioni).length;
+console.log(data_regioni[0].lat);
+console.log(size);
+
 // Set heatmap values for each state
 polygonSeries.data = [
+  for (i = 0; i < size; i++) {
+    console.log(data_regioni[i].codice_regione);
+    // more statements
+  }
+  /*
   {
     id: "IT-25",
     label: "Lombardia",
@@ -238,7 +247,7 @@ polygonSeries.data = [
   {
     id: "US-WY",
     value: 493782
-  }
+  }*/
 ];
 
 // Set up heat legend

@@ -8,9 +8,8 @@ def get_last_regioni():
 
     j = res.json()
     
-    df = pd.DataFrame(j)
+    #df = pd.DataFrame(j)
     
-    return df
-
+    return j
 
 

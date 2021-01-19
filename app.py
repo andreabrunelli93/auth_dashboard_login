@@ -117,8 +117,10 @@ def dashboard():
     terapia_intensiva = last_data['terapia_intensiva'][0]
     
     regioni = get_last_regioni()
+    
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
-                           ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva)
+                           ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva,
+                           regioni=regioni)
 
 @app.route('/logout')
 @login_required
