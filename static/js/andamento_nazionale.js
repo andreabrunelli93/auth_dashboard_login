@@ -55,7 +55,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                borderColor: '#f9c74f',
+                borderColor: '#a31621',
                 fill: false,
                 pointRadius: 1,
                 data: totale_positivi_adj,
@@ -86,7 +86,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                borderColor: '#f9c74f',
+                borderColor: '#a31621',
                 fill: false,
                 pointRadius: 1,
                 data: totale_positivi,
@@ -100,7 +100,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             },
             {
                 label: 'Probabili positivi',
-                borderColor: '#f9844a',
+                borderColor: '#f39237',
                 fill: false,
                 pointRadius: 1,
                 data: probabili_positivi
