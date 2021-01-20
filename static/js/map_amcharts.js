@@ -35,220 +35,46 @@ polygonSeries.heatRules.push({
 // Make map load polygon data (state shapes and names) from GeoJSON
 polygonSeries.useGeodata = true;
 
-var size = Object.keys(data_regioni).length;
-console.log(data_regioni[0].lat);
-console.log(size);
+remap_codes = {
+  "IT-1": "IT-21",
+  "IT-2": "IT-23",
+  "IT-3": "IT-25",
+  "IT-4": "",
+  "IT-5": "IT-34",
+  "IT-6": "IT-36",
+  "IT-7": "IT-42",
+  "IT-8": "IT-45",
+  "IT-9": "IT-52",
+  "IT-10": "IT-55",
+  "IT-11": "IT-57",
+  "IT-12": "IT-62",
+  "IT-13": "IT-65",
+  "IT-14": "IT-67",
+  "IT-15": "IT-72",
+  "IT-16": "IT-75",
+  "IT-17": "IT-77",
+  "IT-18": "IT-78",
+  "IT-19": "IT-82",
+  "IT-20": "IT-88",
+  "IT-21": "IT-32",
+  "IT-22": "IT-32"
+};
+
+console.log(data_regioni[0].codice_regione)
+console.log(remap_codes["IT-" + data_regioni[0].codice_regione])
 
 // Set heatmap values for each state
-polygonSeries.data = [
-  for (i = 0; i < size; i++) {
-    console.log(data_regioni[i].codice_regione);
-    // more statements
+polygonSeries.data = data_regioni.map((item)=>{
+    return{
+    id: remap_codes["IT-" + item.codice_regione],
+    CNTRY : "Italy",
+    NAME_ENG: item.denominazione_regione,
+    name: item.denominazione_regione,
+    value: item.nuovi_positivi,
   }
-  /*
-  {
-    id: "IT-25",
-    label: "Lombardia",
-    value: 11444710
-  },
-  {
-    id: "IT-23",
-    label: "Valle D'Aosta",
-    value: 626932
-  },
-  {
-    id: "US-AZ",
-    value: 5130632
-  },
-  {
-    id: "US-AR",
-    value: 2673400
-  },
-  {
-    id: "US-CA",
-    value: 33871648
-  },
-  {
-    id: "US-CO",
-    value: 4301261
-  },
-  {
-    id: "US-CT",
-    value: 3405565
-  },
-  {
-    id: "US-DE",
-    value: 783600
-  },
-  {
-    id: "US-FL",
-    value: 15982378
-  },
-  {
-    id: "US-GA",
-    value: 8186453
-  },
-  {
-    id: "US-HI",
-    value: 1211537
-  },
-  {
-    id: "US-ID",
-    value: 1293953
-  },
-  {
-    id: "US-IL",
-    value: 12419293
-  },
-  {
-    id: "US-IN",
-    value: 6080485
-  },
-  {
-    id: "US-IA",
-    value: 2926324
-  },
-  {
-    id: "US-KS",
-    value: 2688418
-  },
-  {
-    id: "US-KY",
-    value: 4041769
-  },
-  {
-    id: "US-LA",
-    value: 4468976
-  },
-  {
-    id: "US-ME",
-    value: 1274923
-  },
-  {
-    id: "US-MD",
-    value: 5296486
-  },
-  {
-    id: "US-MA",
-    value: 6349097
-  },
-  {
-    id: "US-MI",
-    value: 9938444
-  },
-  {
-    id: "US-MN",
-    value: 4919479
-  },
-  {
-    id: "US-MS",
-    value: 2844658
-  },
-  {
-    id: "US-MO",
-    value: 5595211
-  },
-  {
-    id: "US-MT",
-    value: 902195
-  },
-  {
-    id: "US-NE",
-    value: 1711263
-  },
-  {
-    id: "US-NV",
-    value: 1998257
-  },
-  {
-    id: "US-NH",
-    value: 1235786
-  },
-  {
-    id: "US-NJ",
-    value: 8414350
-  },
-  {
-    id: "US-NM",
-    value: 1819046
-  },
-  {
-    id: "US-NY",
-    value: 18976457
-  },
-  {
-    id: "US-NC",
-    value: 8049313
-  },
-  {
-    id: "US-ND",
-    value: 642200
-  },
-  {
-    id: "US-OH",
-    value: 11353140
-  },
-  {
-    id: "US-OK",
-    value: 3450654
-  },
-  {
-    id: "US-OR",
-    value: 3421399
-  },
-  {
-    id: "US-PA",
-    value: 12281054
-  },
-  {
-    id: "US-RI",
-    value: 1048319
-  },
-  {
-    id: "US-SC",
-    value: 4012012
-  },
-  {
-    id: "US-SD",
-    value: 754844
-  },
-  {
-    id: "US-TN",
-    value: 5689283
-  },
-  {
-    id: "US-TX",
-    value: 20851820
-  },
-  {
-    id: "US-UT",
-    value: 2233169
-  },
-  {
-    id: "US-VT",
-    value: 608827
-  },
-  {
-    id: "US-VA",
-    value: 7078515
-  },
-  {
-    id: "US-WA",
-    value: 5894121
-  },
-  {
-    id: "US-WV",
-    value: 1808344
-  },
-  {
-    id: "US-WI",
-    value: 5363675
-  },
-  {
-    id: "US-WY",
-    value: 493782
-  }*/
-];
+});
+
+console.log(polygonSeries.data)
 
 // Set up heat legend
 let heatLegend = chart.createChild(am4maps.HeatLegend);
