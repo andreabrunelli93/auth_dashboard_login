@@ -2,44 +2,111 @@
 
 var data_andamento = [];
 var totale_positivi = [];
+var totale_positivi_adj = [];
+var terapia_intensiva = [];
+var terapia_intensiva_adj = [];
+var probabili_positivi = [];
+
+var maxPos = null;
+var maxTer = null;
+var PosTerAvg = [];
+var Interest_PostTerAvg = [];
+
+var total = 0;
+
+andamento_nazionale.map((item)=>{
+
+        if ((item.totale_positivi >= maxPos) || (maxPos == null)){
+            maxPos = item.totale_positivi;
+        }
+
+        if ((item.terapia_intensiva >= maxTer) || (maxTer == null)){
+            maxTer = item.terapia_intensiva;
+        }
+        
+        PosTerAvg.push(item.totale_positivi / item.terapia_intensiva);
+}); 
+
+Interest_PostTerAvg = PosTerAvg.slice(150, PosTerAvg.length);
+
+for(var i = 0; i < Interest_PostTerAvg.length; i++) {
+    total += Interest_PostTerAvg[i];
+}
+var avg = total / Interest_PostTerAvg.length;
 
 
 andamento_nazionale.map((item)=>{
-        data_andamento.push(item.data.substring(0,10));
-        totale_positivi.push(item.totale_positivi);
-}); 
+    data_andamento.push(item.data.substring(0,10));
+    totale_positivi_adj.push((item.totale_positivi/maxPos)*100);
+    terapia_intensiva_adj.push((item.terapia_intensiva/maxTer)*100);
+    totale_positivi.push(item.totale_positivi);
+    terapia_intensiva.push(item.terapia_intensiva);
+    probabili_positivi.push(item.terapia_intensiva * avg);
+});
 
-console.log(totale_positivi)
 
-
-var ctx = document.getElementById('myChart').getContext('2d');
+var ctx = document.getElementById('andamento_indici').getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
         type: 'line',
 
-        /*
-        andamento_nazionale.map((item)=>{
-            return{
-                labels: item.data
-                datasets[{
-                    label: 'Andamento nazionale',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: item.totale_positivi
-                }]
-            }
-
-        };)*/
         // The data for our dataset
         data: {
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                pointRadius: 0,
-                data: totale_positivi
-            }]
+                borderColor: '#f9c74f',
+                fill: false,
+                pointRadius: 1,
+                data: totale_positivi_adj,
+                order: totale_positivi
+            }, 
+            {
+                label: 'Terapie intensive',
+                borderColor: '#f94144',
+                fill: false,
+                pointRadius: 1,
+                data: terapia_intensiva_adj
+            },
+        ]
+        
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+
+    var ctx = document.getElementById('andamento_probabile').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: data_andamento,
+            datasets: [{
+                label: 'Totale Positivi',
+                borderColor: '#f9c74f',
+                fill: false,
+                pointRadius: 1,
+                data: totale_positivi,
+            }, 
+            {
+                label: 'Terapie intensive',
+                borderColor: '#f94144',
+                fill: false,
+                pointRadius: 1,
+                data: terapia_intensiva
+            },
+            {
+                label: 'Probabili positivi',
+                borderColor: '#f9844a',
+                fill: false,
+                pointRadius: 1,
+                data: probabili_positivi
+            },
+        ]
+        
         },
 
         // Configuration options go here
@@ -47,15 +114,5 @@ var ctx = document.getElementById('myChart').getContext('2d');
     });
 
 
-    /*
 
-    polygonSeries.data = data_regioni.map((item)=>{
-        return{
-        id: remap_codes["IT-" + item.codice_regione],
-        CNTRY : "Italy",
-        NAME_ENG: item.denominazione_regione,
-        name: item.denominazione_regione,
-        value: item.totale_positivi,
-      }
-    }); */
     

@@ -68,8 +68,20 @@
           <div class="col">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <canvas class="my-4 w-120" id="myChart"></canvas>
+                <h5 class="card-title">Indici di rapporto tra Totale Positivi e Terapie Intensive</h5>
+                <canvas class="my-4 w-120" id="andamento_indici"></canvas>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-body">
+                <h5 class="card-title">Probabili Positivi</h5> 
+                <canvas class="my-4 w-120" id="andamento_probabile"></canvas>
+                <p>Probabili positivi sulla base del rapporto Positivi / Terapie intensive su un lasso di tempo più affidabile (Luglio ->)</p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
@@ -80,18 +92,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title">Contagi per regioni (ultimo giorno)</h5> 
-                <div id="chartdiv"></div>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Totale contagi Italia</h5>
-                
+                <div id="chartdiv" style="height: 500px;"></div>
                 
               </div>
               <div class="card-footer">
