@@ -60,8 +60,6 @@ remap_codes = {
   "IT-22": "IT-32"
 };
 
-console.log(data_regioni[0].codice_regione)
-console.log(remap_codes["IT-" + data_regioni[0].codice_regione])
 
 // Set heatmap values for each state
 polygonSeries.data = data_regioni.map((item)=>{
@@ -70,11 +68,10 @@ polygonSeries.data = data_regioni.map((item)=>{
     CNTRY : "Italy",
     NAME_ENG: item.denominazione_regione,
     name: item.denominazione_regione,
-    value: item.nuovi_positivi,
+    value: item.totale_positivi,
   }
 });
 
-console.log(polygonSeries.data)
 
 // Set up heat legend
 let heatLegend = chart.createChild(am4maps.HeatLegend);

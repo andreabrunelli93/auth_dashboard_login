@@ -16,6 +16,7 @@ import pandas as pd
 
 from tools.get_last_data import get_last_data
 from tools.get_last_regioni import get_last_regioni
+from tools.get_andamento_nazionale import get_andamento_nazionale
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -118,9 +119,11 @@ def dashboard():
     
     regioni = get_last_regioni()
     
+    andamento_nazionale = get_andamento_nazionale()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
                            ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva,
-                           regioni=regioni)
+                           regioni=regioni,
+                           andamento_nazionale = andamento_nazionale)
 
 @app.route('/logout')
 @login_required

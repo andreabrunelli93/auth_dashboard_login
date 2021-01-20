@@ -79,7 +79,7 @@
           <div class="col">
             <div class="card h-100">
               <div class="card-body">
-                <h5 class="card-title">Contagi per Regioni</h5>
+                <h5 class="card-title">Contagi per regioni (ultimo giorno)</h5> 
                 <div id="chartdiv"></div>
               </div>
               <div class="card-footer">
@@ -102,10 +102,9 @@
         </div>
         <br>
 
-        
-        
-
-        <h2>Section title</h2>
+        <script>
+          var andamento_nazionale = {{ andamento_nazionale|tojson  }};
+        </script>
         
       </main>
     </div>
