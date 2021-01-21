@@ -55,7 +55,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                borderColor: '#a31621',
+                borderColor: '#adc698',
                 fill: false,
                 pointRadius: 1,
                 data: totale_positivi_adj,
@@ -63,7 +63,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             }, 
             {
                 label: 'Terapie intensive',
-                borderColor: '#f94144',
+                borderColor: '#a31621',
                 fill: false,
                 pointRadius: 1,
                 data: terapia_intensiva_adj

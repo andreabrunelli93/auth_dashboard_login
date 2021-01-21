@@ -10,6 +10,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 
 from flask_migrate import Migrate
 
+from flask_fontawesome import FontAwesome
+
 import os
 
 import pandas as pd
@@ -28,6 +30,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "questaèlachiavesegreta"
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
+fa = FontAwesome(app)
 Bootstrap(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)

@@ -28,7 +28,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title">Ricoverati con Sintomi</h5>
-                <h4>{{ ricoverati_con_sintomi }}</h4>
+                <h4>{{ ricoverati_con_sintomi | int}}</h4>
               </div>
               <div class="card-footer">
                 <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
@@ -39,7 +39,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title">Terapia intensiva</h5>
-                <h4>{{ terapia_intensiva }}</h4>
+                <h4>{{ terapia_intensiva  | int }}</h4>
               </div>
               <div class="card-footer">
                 <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
@@ -50,7 +50,7 @@
             <div class="card h-100">
               <div class="card-body">
                 <h5 class="card-title">Totale contagi Italia</h5>
-                <h4>{{ total_positive }}</h4>
+                <h4>{{ total_positive | int}}</h4>
               </div>
               <div class="card-footer">
                 <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
