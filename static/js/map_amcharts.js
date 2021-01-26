@@ -1,39 +1,3 @@
-/**
- * ---------------------------------------
- * This demo was created using amCharts 4.
- *
- * For more information visit:
- * https://www.amcharts.com/
- *
- * Documentation is available at:
- * https://www.amcharts.com/docs/v4/
- * ---------------------------------------
- */
-
-// Theme
-am4core.useTheme(am4themes_animated);
-
- // Create map instance
-var chart = am4core.create("chartdiv", am4maps.MapChart);
-
-// Set map definition
-chart.geodata = am4geodata_italyLow;
-
-
-// Create map polygon series
-var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
-
-//Set min/max fill color for each area
-polygonSeries.heatRules.push({
-  property: "fill",
-  target: polygonSeries.mapPolygons.template,
-  min: chart.colors.getIndex(1).brighten(1),
-  max: chart.colors.getIndex(1).brighten(-0.3),
-  logarithmic: true
-});
-
-// Make map load polygon data (state shapes and names) from GeoJSON
-polygonSeries.useGeodata = true;
 
 remap_codes = {
   "IT-1": "IT-21",
@@ -60,9 +24,57 @@ remap_codes = {
   "IT-22": "IT-32"
 };
 
+var popolazione_regioni ={
+"IT-25"	: 10018806,
+"IT-62":	5898124,
+"IT-72":	5839084,
+"IT-82":	5056641,
+"IT-34":	4907529,
+"IT-45":	4448841,
+"IT-21":	4392526,
+"IT-75":	4063888,
+"IT-52":	3742437,
+"IT-78":	1965128,
+"IT-88":	1653135,
+"IT-42":	1565307,
+"IT-57":	1538055,
+"IT-65":	1322247,
+"IT-36":	1217872,
+"IT-32":	1062860,
+"IT-55":	888908,
+"IT-77":	570365,
+"IT-67": 310449,
+"IT-23":	126883,
+};
 
-// Set heatmap values for each state
-polygonSeries.data = data_regioni.map((item)=>{
+function map_region(){
+  // Theme
+  am4core.useTheme(am4themes_animated);
+
+  // Create map instance
+  var chart = am4core.create("map_region", am4maps.MapChart);
+
+  // Set map definition
+  chart.geodata = am4geodata_italyLow;
+
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+  //Set min/max fill color for each area
+  polygonSeries.heatRules.push({
+  property: "fill",
+  target: polygonSeries.mapPolygons.template,
+  min: chart.colors.getIndex(1).brighten(1),
+  max: chart.colors.getIndex(1).brighten(-0.3),
+  logarithmic: true
+  });
+
+  // Make map load polygon data (state shapes and names) from GeoJSON
+  polygonSeries.useGeodata = true;
+
+  // Set heatmap values for each state
+  polygonSeries.data = data_regioni.map((item)=>{
     return{
     id: remap_codes["IT-" + item.codice_regione],
     CNTRY : "Italy",
@@ -70,53 +82,146 @@ polygonSeries.data = data_regioni.map((item)=>{
     name: item.denominazione_regione,
     value: item.totale_positivi,
   }
-});
+  });
 
 
-// Set up heat legend
-let heatLegend = chart.createChild(am4maps.HeatLegend);
-heatLegend.series = polygonSeries;
-heatLegend.align = "right";
-heatLegend.valign = "bottom";
-heatLegend.height = am4core.percent(80);
-heatLegend.orientation = "vertical";
-heatLegend.valign = "middle";
-heatLegend.marginRight = am4core.percent(4);
-heatLegend.valueAxis.renderer.opposite = true;
-heatLegend.valueAxis.renderer.dx = - 25;
-heatLegend.valueAxis.strictMinMax = false;
-heatLegend.valueAxis.fontSize = 9;
-heatLegend.valueAxis.logarithmic = true;
+  // Set up heat legend
+  let heatLegend = chart.createChild(am4maps.HeatLegend);
+  heatLegend.series = polygonSeries;
+  heatLegend.align = "right";
+  heatLegend.valign = "bottom";
+  heatLegend.height = am4core.percent(80);
+  heatLegend.orientation = "vertical";
+  heatLegend.valign = "middle";
+  heatLegend.marginRight = am4core.percent(4);
+  heatLegend.valueAxis.renderer.opposite = true;
+  heatLegend.valueAxis.renderer.dx = - 25;
+  heatLegend.valueAxis.strictMinMax = false;
+  heatLegend.valueAxis.fontSize = 9;
+  heatLegend.valueAxis.logarithmic = true;
 
-// Configure series tooltip
-var polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}: {value}";
-polygonTemplate.nonScalingStroke = true;
-polygonTemplate.strokeWidth = 0.5;
+  // Configure series tooltip
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.tooltipText = "{name}: {value}";
+  polygonTemplate.nonScalingStroke = true;
+  polygonTemplate.strokeWidth = 0.5;
 
-// Create hover state and set alternative fill color
-var hs = polygonTemplate.states.create("hover");
-hs.properties.fill = am4core.color("#3c5bdc");
+  // Create hover state and set alternative fill color
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = am4core.color("#3c5bdc");
 
 
-// heat legend behavior
-polygonSeries.mapPolygons.template.events.on("over", function (event) {
+  // heat legend behavior
+  polygonSeries.mapPolygons.template.events.on("over", function (event) {
   handleHover(event.target);
-})
+  })
 
-polygonSeries.mapPolygons.template.events.on("hit", function (event) {
+  polygonSeries.mapPolygons.template.events.on("hit", function (event) {
   handleHover(event.target);
-})
+  })
 
-function handleHover(column) {
+  function handleHover(column) {
   if (!isNaN(column.dataItem.value)) {
     heatLegend.valueAxis.showTooltipAt(column.dataItem.value)
   }
   else {
     heatLegend.valueAxis.hideTooltip();
   }
+  }
+
+  polygonSeries.mapPolygons.template.events.on("out", function (event) {
+  heatLegend.valueAxis.hideTooltip();
+  })
 }
 
-polygonSeries.mapPolygons.template.events.on("out", function (event) {
+map_region();
+
+function map_region_relative(){
+  // Theme
+  am4core.useTheme(am4themes_animated);
+
+  // Create map instance
+  var chart = am4core.create("map_region_relative", am4maps.MapChart);
+
+  // Set map definition
+  chart.geodata = am4geodata_italyLow;
+
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+  //Set min/max fill color for each area
+  polygonSeries.heatRules.push({
+  property: "fill",
+  target: polygonSeries.mapPolygons.template,
+  min: am4core.color("#faafaf"),
+  max: am4core.color("#ff0000"),
+  logarithmic: true
+  });
+
+  // Make map load polygon data (state shapes and names) from GeoJSON
+  polygonSeries.useGeodata = true;
+
+  // Set heatmap values for each state
+  polygonSeries.data = data_regioni.map((item)=>{
+    return{
+    id: remap_codes["IT-" + item.codice_regione],
+    CNTRY : "Italy",
+    NAME_ENG: item.denominazione_regione,
+    name: item.denominazione_regione,
+    value: (item.totale_positivi / popolazione_regioni[remap_codes["IT-" + item.codice_regione]])*100,
+  }
+  });
+
+
+  // Set up heat legend
+  let heatLegend = chart.createChild(am4maps.HeatLegend);
+  heatLegend.series = polygonSeries;
+  heatLegend.align = "right";
+  heatLegend.valign = "bottom";
+  heatLegend.height = am4core.percent(80);
+  heatLegend.orientation = "vertical";
+  heatLegend.valign = "middle";
+  heatLegend.marginRight = am4core.percent(4);
+  heatLegend.valueAxis.renderer.opposite = true;
+  heatLegend.valueAxis.renderer.dx = - 25;
+  heatLegend.valueAxis.strictMinMax = false;
+  heatLegend.valueAxis.fontSize = 9;
+  heatLegend.valueAxis.logarithmic = true;
+  
+
+  // Configure series tooltip
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.tooltipText = "{name}: {value}";
+  polygonTemplate.nonScalingStroke = true;
+  polygonTemplate.strokeWidth = 0.5;
+
+  // Create hover state and set alternative fill color
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = am4core.color("#ff5252");
+
+
+  // heat legend behavior
+  polygonSeries.mapPolygons.template.events.on("over", function (event) {
+  handleHover(event.target);
+  })
+
+  polygonSeries.mapPolygons.template.events.on("hit", function (event) {
+  handleHover(event.target);
+  })
+
+  function handleHover(column) {
+  if (!isNaN(column.dataItem.value)) {
+    heatLegend.valueAxis.showTooltipAt(column.dataItem.value)
+  }
+  else {
+    heatLegend.valueAxis.hideTooltip();
+  }
+  }
+
+  polygonSeries.mapPolygons.template.events.on("out", function (event) {
   heatLegend.valueAxis.hideTooltip();
-})
+  })
+}
+
+map_region_relative();
