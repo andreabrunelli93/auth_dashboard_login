@@ -119,12 +119,24 @@ def dashboard():
     total_positive = last_data['totale_positivi_test_molecolare'][0]
     ricoverati_con_sintomi = last_data['ricoverati_con_sintomi'][0]
     terapia_intensiva = last_data['terapia_intensiva'][0]
-    
-    regioni = get_last_regioni()
+    isolamento_domiciliare = last_data['isolamento_domiciliare'][0]
+    totale_positivi_test_molecolare = last_data["totale_positivi_test_molecolare"][0]
+    totale_positivi_test_antigenico_rapido = last_data["totale_positivi_test_antigenico_rapido"][0]
+    tamponi_test_molecolare = last_data["tamponi_test_molecolare"][0]
+    tamponi_test_antigenico_rapido = last_data["tamponi_test_antigenico_rapido"][0]
+    deceduti = last_data["deceduti"][0]
+        
+    regioni = get_last_regioni() #è un json
     
     andamento_nazionale = get_andamento_nazionale()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
                            ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva,
+                           totale_positivi_test_molecolare = totale_positivi_test_molecolare, 
+                           totale_positivi_test_antigenico_rapido = totale_positivi_test_antigenico_rapido,
+                           tamponi_test_molecolare = tamponi_test_molecolare,
+                           tamponi_test_antigenico_rapido = tamponi_test_antigenico_rapido,
+                           isolamento_domiciliare = isolamento_domiciliare,
+                           deceduti = deceduti,
                            regioni=regioni,
                            andamento_nazionale = andamento_nazionale)
 

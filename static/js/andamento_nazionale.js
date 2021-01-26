@@ -55,7 +55,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                borderColor: '#adc698',
+                borderColor: '#4680ff',
                 fill: false,
                 pointRadius: 1,
                 data: totale_positivi_adj,
@@ -63,7 +63,7 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             }, 
             {
                 label: 'Terapie intensive',
-                borderColor: '#a31621',
+                borderColor: '#ff5252',
                 fill: false,
                 pointRadius: 1,
                 data: terapia_intensiva_adj
@@ -86,21 +86,21 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
             labels: data_andamento,
             datasets: [{
                 label: 'Totale Positivi',
-                borderColor: '#a31621',
+                borderColor: '#4680ff',
                 fill: false,
                 pointRadius: 1,
                 data: totale_positivi,
             }, 
             {
                 label: 'Terapie intensive',
-                borderColor: '#f94144',
+                borderColor: '#ff5252',
                 fill: false,
                 pointRadius: 1,
                 data: terapia_intensiva
             },
             {
                 label: 'Probabili positivi',
-                borderColor: '#f39237',
+                borderColor: '#ffba57',
                 fill: false,
                 pointRadius: 1,
                 data: probabili_positivi

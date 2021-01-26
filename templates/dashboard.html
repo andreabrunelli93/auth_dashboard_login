@@ -34,24 +34,20 @@
                         <div class="col-sm-6">
                             <div class="card support-bar overflow-hidden">
                                 <div class="card-body pb-0">
-                                    <h2 class="m-0">350</h2>
-                                    <span class="text-c-blue">Support Requests</span>
-                                    <p class="mb-3 mt-3">Total number of support requests that come in.</p>
+                                    <h2 class="m-0">{{ '{0:,}'.format(ricoverati_con_sintomi | int)}}</h2>
+                                    <span class="text-c-blue">Ricoverati con sintomi</span>
+                                    <p class="mb-3 mt-3">Ultimo aggiornamento {{ update }}</p>
                                 </div>
                                 <div id="support-chart"></div>
                                 <div class="card-footer bg-primary text-white">
                                     <div class="row text-center">
                                         <div class="col">
-                                            <h4 class="m-0 text-white">{{ ricoverati_con_sintomi | int}}</h4>
-                                            <span>Ricoverati con Sintomi</span>
+                                            <h4 class="m-0 text-white"> {{'{0:,}'.format( terapia_intensiva | int )}}</h4>
+                                            <span>Terapia intensiva</span>
                                         </div>
                                         <div class="col">
-                                            <h4 class="m-0 text-white">5</h4>
-                                            <span>Running</span>
-                                        </div>
-                                        <div class="col">
-                                            <h4 class="m-0 text-white">3</h4>
-                                            <span>Solved</span>
+                                            <h4 class="m-0 text-white">{{ '{0:,}'.format(isolamento_domiciliare | int) }}</h4>
+                                            <span>In isolamento domiciliare</span>
                                         </div>
                                     </div>
                                 </div>
@@ -60,25 +56,22 @@
                         <div class="col-sm-6">
                             <div class="card support-bar overflow-hidden">
                                 <div class="card-body pb-0">
-                                    <h2 class="m-0">{{ terapia_intensiva | int }}</h2>
-                                    <span class="text-c-green">Terapia intensiva</span>
+                                    <h2 class="m-0">{{ '{0:,}'.format(tamponi_test_molecolare + tamponi_test_antigenico_rapido | int) }}</h2>
+                                    <span class="text-c-green">Totale tamponi</span>
                                     <p class="mb-3 mt-3">Ultimo aggiornamento {{ update }}</p>
                                 </div>
                                 <div id="support-chart1"></div>
                                 <div class="card-footer bg-success text-white">
                                     <div class="row text-center">
                                         <div class="col">
-                                            <h4 class="m-0 text-white">10</h4>
-                                            <span>Open</span>
+                                            <h4 class="m-0 text-white">{{ '{0:,}'.format(tamponi_test_molecolare | int ) }}</h4>
+                                            <span>Tamponi test molecolare</span>
                                         </div>
                                         <div class="col">
-                                            <h4 class="m-0 text-white">5</h4>
-                                            <span>Running</span>
+                                            <h4 class="m-0 text-white">{{ '{0:,}'.format(tamponi_test_antigenico_rapido | int )}}</h4>
+                                            <span>Tamponi antigenici</span>
                                         </div>
-                                        <div class="col">
-                                            <h4 class="m-0 text-white">3</h4>
-                                            <span>Solved</span>
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -94,11 +87,11 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h4 class="text-c-yellow">$30200</h4>
-                                            <h6 class="text-muted m-b-0">All Earnings</h6>
+                                            <h4 class="text-c-gray">{{ '{0:,}'.format(deceduti | int) }}</h4>
+                                            <h6 class="text-muted m-b-0">Totale deceduti</h6>
                                         </div>
                                         <div class="col-4 text-right">
-                                            <i class="feather icon-bar-chart-2 f-28"></i>
+                                            <span class="fas fa-praying-hands"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +185,34 @@
                     </div>
                     <!-- page statistic card end -->
                 </div>
+                <div class="row" id = "maps">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Indici di rapporto tra Totale Positivi e Terapie Intensive</h5>
+                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <div id="power-card-chart3"></div>
+                                    <canvas class="my-4 w-120" id="andamento_indici"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Probabili positivi</h5>
+                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <canvas class="my-4 w-120" id="andamento_probabile"></canvas>
+                                    <p>Probabili positivi sulla base del rapporto Positivi / Terapie intensive su un lasso di tempo più affidabile (Luglio ->)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
                         <div class="col-sm-12">
