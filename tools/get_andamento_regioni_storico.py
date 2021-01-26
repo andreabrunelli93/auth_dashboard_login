@@ -21,13 +21,13 @@ def get_andamento_regioni_storico():
     
     df['codice_regione'].replace(remap_codes, inplace=True)
     
-    df.to_sql('andamento_regioni', engine)
+    df.to_sql('andamento_regioni', engine, if_exists='replace', chunksize=1000)
     
     return df
 
 df = get_andamento_regioni_storico()
 
 
-
-print(df.head())
+test = engine.execute("SELECT TOP 1 data FROM andamento_regioni  ORDER BY ID DESC").fetchall()
+print(test)
 
