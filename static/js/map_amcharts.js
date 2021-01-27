@@ -155,7 +155,7 @@ function map_region_relative(){
   property: "fill",
   target: polygonSeries.mapPolygons.template,
   min: am4core.color("#faafaf"),
-  max: am4core.color("#ff0000"),
+  max: am4core.color("#5e0101"),
   logarithmic: true
   });
 
