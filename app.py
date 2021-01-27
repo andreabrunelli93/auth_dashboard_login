@@ -19,6 +19,7 @@ import pandas as pd
 from tools.get_last_data import get_last_data
 from tools.get_last_regioni import get_last_regioni
 from tools.get_andamento_nazionale import get_andamento_nazionale
+from tools.get_region_vaccine_last import get_region_vaccine_last
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -127,6 +128,7 @@ def dashboard():
     deceduti = last_data["deceduti"][0]
         
     regioni = get_last_regioni() #è un json
+    regioni_vaccini = get_region_vaccine_last() #è un json
     
     andamento_nazionale = get_andamento_nazionale()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
@@ -138,6 +140,7 @@ def dashboard():
                            isolamento_domiciliare = isolamento_domiciliare,
                            deceduti = deceduti,
                            regioni=regioni,
+                           regioni_vaccini = regioni_vaccini,
                            andamento_nazionale = andamento_nazionale)
 
 @app.route('/logout')

@@ -244,126 +244,31 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Vaccini per regione</h5>
+                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <div id="power-card-chart3"></div>
+                                    <div id="map_region_vaccini" style="height: 500px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-
+              
             </div>
             <!-- [ Main Content ] end -->
         </div>
     </div>
 
-    <!--
-  <div class="pcoded-main-container">
-    <div class="row">
-      
+    
 
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div
-          class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <h1 class="h2">Dashboard</h1>
-          <div class="btn-toolbar mb-2 mb-md-0">
-            <div class="btn-group me-2">
-              <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-            </div>
-            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-              <span data-feather="calendar"></span>
-              This week
-            </button>
-          </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Ricoverati con Sintomi</h5>
-                <h4>{{ ricoverati_con_sintomi | int}}</h4>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Terapia intensiva</h5>
-                <h4>{{ terapia_intensiva  | int }}</h4>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Totale contagi Italia</h5>
-                <h4>{{ total_positive | int}}</h4>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <script>
-          var data_regioni = {{ regioni|tojson  }};
-        </script>
-
-
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Indici di rapporto tra Totale Positivi e Terapie Intensive</h5>
-                <canvas class="my-4 w-120" id="andamento_indici"></canvas>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Probabili Positivi</h5> 
-                <canvas class="my-4 w-120" id="andamento_probabile"></canvas>
-                <p>Probabili positivi sulla base del rapporto Positivi / Terapie intensive su un lasso di tempo più affidabile (Luglio ->)</p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <div class="card-body">
-                <h5 class="card-title">Contagi per regioni (ultimo giorno)</h5> 
-                <div id="chartdiv" style="height: 500px;"></div>
-                
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">Ultimo aggiornamento: {{ update }}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-
-        <script>
-          var andamento_nazionale = {{ andamento_nazionale|tojson  }};
-        </script>
-        
-      </main>
-    </div>
-  </div>
-
--->
     <script>
         var andamento_nazionale = {{ andamento_nazionale| tojson  }};
         var data_regioni = {{ regioni| tojson  }};
+        var regioni_vaccini = {{ regioni_vaccini| tojson }};
     </script>
     {% include "footer.html" %}
