@@ -117,8 +117,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-8">
-                                            <h4 class="text-c-green">290+</h4>
-                                            <h6 class="text-muted m-b-0">Page Views</h6>
+                                            <h4 class="text-c-green">{{ '{0:,}'.format(totale_vaccinati | int) }}</h4>
+                                            <h6 class="text-muted m-b-0">Totale persone vaccinate</h6>
                                         </div>
                                         <div class="col-4 text-right">
                                             <i class="feather icon-file-text f-28"></i>
@@ -128,7 +128,7 @@
                                 <div class="card-footer bg-c-green">
                                     <div class="row align-items-center">
                                         <div class="col-9">
-                                            <p class="text-white m-b-0">% change</p>
+                                            <p class="text-white m-b-0">{{ "%.2f"|format((totale_vaccinati / 60317000)*100) }}% degli italiani</p>
                                         </div>
                                         <div class="col-3 text-right">
                                             <i class="feather icon-trending-up text-white f-16"></i>
@@ -248,7 +248,7 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Vaccini per regione</h5>
+                                    <h5 class="mb-3">Numero dosi di vaccino somministrate per regione</h5>
                                     <span class="text-muted m-l-10 f-14">{{ update }}</span>
                                     <div id="power-card-chart3"></div>
                                     <div id="map_region_vaccini" style="height: 500px;"></div>
@@ -261,7 +261,7 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Percentuale di popolazione vaccinata (2 dosi)</h5>
+                                    <h5 class="mb-3">Percentuale (%) di popolazione vaccinata (2 dosi) per regione</h5>
                                     <span class="text-muted m-l-10 f-14">{{ update }}</span>
                                     <div id="power-card-chart3"></div>
                                     <div id="map_region_vaccini_relative" style="height: 500px;"></div>

@@ -13,6 +13,7 @@ from flask_migrate import Migrate
 from flask_fontawesome import FontAwesome
 
 import os
+import json
 
 import pandas as pd
 
@@ -130,6 +131,9 @@ def dashboard():
     regioni = get_last_regioni() #è un json
     regioni_vaccini = get_region_vaccine_last() #è un json
     
+    totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
+
+    
     andamento_nazionale = get_andamento_nazionale()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
                            ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva,
@@ -141,6 +145,7 @@ def dashboard():
                            deceduti = deceduti,
                            regioni=regioni,
                            regioni_vaccini = regioni_vaccini,
+                           totale_vaccinati = totale_vaccinati,
                            andamento_nazionale = andamento_nazionale)
 
 @app.route('/logout')
