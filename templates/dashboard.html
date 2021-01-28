@@ -257,6 +257,19 @@
                         </div>
                     </div>
 
+                    <div class="col-lg-6 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Percentuale di popolazione vaccinata (2 dosi)</h5>
+                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <div id="power-card-chart3"></div>
+                                    <div id="map_region_vaccini_relative" style="height: 500px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
               
             </div>
@@ -264,11 +277,16 @@
         </div>
     </div>
 
+
     
 
     <script>
         var andamento_nazionale = {{ andamento_nazionale| tojson  }};
         var data_regioni = {{ regioni| tojson  }};
         var regioni_vaccini = {{ regioni_vaccini| tojson }};
+        regioni_vaccini = JSON.parse(regioni_vaccini);
+        
     </script>
+
+
     {% include "footer.html" %}

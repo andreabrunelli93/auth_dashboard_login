@@ -6,11 +6,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 import psycopg2 
 from datetime import date, datetime
+import numpy as np
 
 engine = create_engine('postgresql://postgres:admin@localhost:5432/dashboard_flask1')
 
-remap_codes_reg_vaccine = { 0: "65", 1: "77", 2: "78", 3: "72", 4: "45", 5: "36", 6: "62", 7: "42", 8: "25", 9: "57", 10: "67", 11: "21", 
-                   12: "21", 13: "75", 14: "88", 15: "82", 16: "52", 17: "32", 18: "55", 19: "23", 20: "34" }
+remap_codes_reg_vaccine = { 65: "ABR", 77: "BAS", 78: "CAL", 72: "CAM", 45: "EMR", 36: "FVG", 62: "LAZ", 42: "LIG", 25: "LOM", 57: "MAR", 67: "MOL", 21: "PIE", 
+                            75: "PUG", 88: "SAR", 82: "SIC", 52: "TOS", 32: "PAT", 55: "UMB", 23: "VDA", 34: "VEN" };
+
 def get_region_vaccine_last():
     
     today = str(date.today())
@@ -24,8 +26,8 @@ def get_region_vaccine_last():
     now = datetime.now()
     current_hour = int(now.strftime("%H"))
     
-    if(today == last_day):
-        if(current_hour > 18):
+    if(today != last_day):
+        if(current_hour > 10):
             print('aggiorno gli elementi')
             res = requests.get("https://raw.githubusercontent.com/italia/covid19-opendata-vaccini/master/dati/vaccini-summary-latest.json")
 
@@ -34,8 +36,10 @@ def get_region_vaccine_last():
             j_norm = json_normalize(j['data'])
 
             df = pd.DataFrame(j_norm)
-
-            df['index'].replace(remap_codes_reg_vaccine, inplace=True)
+            
+            
+            for index, (key, value) in enumerate(remap_codes_reg_vaccine.items()):
+                df['index'] = np.where((df.area == value), key, df['index'])
             
             df.to_sql('vaccini_regioni', engine, if_exists='replace', chunksize=1000)
             

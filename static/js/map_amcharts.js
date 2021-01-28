@@ -47,6 +47,8 @@ var popolazione_regioni ={
 "IT-23":	126883,
 };
 
+/* MAPPA DEI CONTAGI PER REGIONE */ 
+
 function map_region(){
   // Theme
   am4core.useTheme(am4themes_animated);
@@ -135,6 +137,8 @@ function map_region(){
 }
 
 map_region();
+
+/* MAPPA RELATIVA DELLE REGIONI SULLA BASE DELLA POPOLAZIONE */ 
 
 function map_region_relative(){
   // Theme
@@ -226,6 +230,9 @@ function map_region_relative(){
 
 map_region_relative();
 
+/* MAPPA DEI VACCINI SOMMINISTRATI PER REGIONE */ 
+
+
 function map_region_vaccini(){
   // Theme
   am4core.useTheme(am4themes_animated);
@@ -244,8 +251,8 @@ function map_region_vaccini(){
   polygonSeries.heatRules.push({
   property: "fill",
   target: polygonSeries.mapPolygons.template,
-  min: am4core.color("#faafaf"),
-  max: am4core.color("#5e0101"),
+  min: am4core.color("#f0ffe0"),
+  max: am4core.color("#3b6b04"),
   logarithmic: true
   });
 
@@ -288,7 +295,7 @@ function map_region_vaccini(){
 
   // Create hover state and set alternative fill color
   var hs = polygonTemplate.states.create("hover");
-  hs.properties.fill = am4core.color("#ff5252");
+  hs.properties.fill = am4core.color("#9ccc65");
 
 
   // heat legend behavior
@@ -315,3 +322,96 @@ function map_region_vaccini(){
 }
 
 map_region_vaccini();
+
+/* MAPPA DEI VACCINI SOMMINISTRATI PER REGIONE RELATIVAMENTE ALLA POPOLAZIONE */ 
+
+
+function map_region_vaccini_relative(){
+  // Theme
+  am4core.useTheme(am4themes_animated);
+
+  // Create map instance
+  var chart = am4core.create("map_region_vaccini_relative", am4maps.MapChart);
+
+  // Set map definition
+  chart.geodata = am4geodata_italyLow;
+
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+  //Set min/max fill color for each area
+  polygonSeries.heatRules.push({
+  property: "fill",
+  target: polygonSeries.mapPolygons.template,
+  min: am4core.color("#e8d8c1"),
+  max: am4core.color("#ac6603"),
+  logarithmic: true
+  });
+
+  // Make map load polygon data (state shapes and names) from GeoJSON
+  polygonSeries.useGeodata = true;
+
+  // Set heatmap values for each state
+  polygonSeries.data = regioni_vaccini.map((item)=>{
+    return{
+    id: "IT-" + item.index,
+    CNTRY : "Italy",
+    NAME_ENG: item.area,
+    name: item.area,
+    value: ((item.dosi_somministrate / 2)  / popolazione_regioni["IT-" + item.index])*100,
+  }
+  });
+
+
+  // Set up heat legend
+  let heatLegend = chart.createChild(am4maps.HeatLegend);
+  heatLegend.series = polygonSeries;
+  heatLegend.align = "right";
+  heatLegend.valign = "bottom";
+  heatLegend.height = am4core.percent(80);
+  heatLegend.orientation = "vertical";
+  heatLegend.valign = "middle";
+  heatLegend.marginRight = am4core.percent(4);
+  heatLegend.valueAxis.renderer.opposite = true;
+  heatLegend.valueAxis.renderer.dx = - 25;
+  heatLegend.valueAxis.strictMinMax = false;
+  heatLegend.valueAxis.fontSize = 9;
+  heatLegend.valueAxis.logarithmic = true;
+  
+
+  // Configure series tooltip
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.tooltipText = "{name}: {value}";
+  polygonTemplate.nonScalingStroke = true;
+  polygonTemplate.strokeWidth = 0.5;
+
+  // Create hover state and set alternative fill color
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = am4core.color("#ffba57");
+
+
+  // heat legend behavior
+  polygonSeries.mapPolygons.template.events.on("over", function (event) {
+  handleHover(event.target);
+  })
+
+  polygonSeries.mapPolygons.template.events.on("hit", function (event) {
+  handleHover(event.target);
+  })
+
+  function handleHover(column) {
+  if (!isNaN(column.dataItem.value)) {
+    heatLegend.valueAxis.showTooltipAt(column.dataItem.value)
+  }
+  else {
+    heatLegend.valueAxis.hideTooltip();
+  }
+  }
+
+  polygonSeries.mapPolygons.template.events.on("out", function (event) {
+  heatLegend.valueAxis.hideTooltip();
+  })
+}
+
+map_region_vaccini_relative();
