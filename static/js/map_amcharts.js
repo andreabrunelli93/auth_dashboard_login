@@ -415,3 +415,93 @@ function map_region_vaccini_relative(){
 }
 
 map_region_vaccini_relative();
+
+function map_region_contagi_data(){
+  // Theme
+  am4core.useTheme(am4themes_animated);
+
+  // Create map instance
+  var chart = am4core.create("map_region_contagi_data", am4maps.MapChart);
+
+  // Set map definition
+  chart.geodata = am4geodata_italyLow;
+
+
+  // Create map polygon series
+  var polygonSeries = chart.series.push(new am4maps.MapPolygonSeries());
+
+  //Set min/max fill color for each area
+  polygonSeries.heatRules.push({
+  property: "fill",
+  target: polygonSeries.mapPolygons.template,
+  min: am4core.color("#e8d8c1"),
+  max: am4core.color("#ac6603"),
+  logarithmic: true
+  });
+
+  // Make map load polygon data (state shapes and names) from GeoJSON
+  polygonSeries.useGeodata = true;
+
+  // Set heatmap values for each state
+  polygonSeries.data = andamento_regioni_storico_giorno.map((item)=>{
+    return{
+      id: "IT-" + item.codice_regione,
+      CNTRY : "Italy",
+      NAME_ENG: item.denominazione_regione,
+      name: item.denominazione_regione,
+      value: item.totale_positivi,
+  }
+  });
+
+
+  // Set up heat legend
+  let heatLegend = chart.createChild(am4maps.HeatLegend);
+  heatLegend.series = polygonSeries;
+  heatLegend.align = "right";
+  heatLegend.valign = "bottom";
+  heatLegend.height = am4core.percent(80);
+  heatLegend.orientation = "vertical";
+  heatLegend.valign = "middle";
+  heatLegend.marginRight = am4core.percent(4);
+  heatLegend.valueAxis.renderer.opposite = true;
+  heatLegend.valueAxis.renderer.dx = - 25;
+  heatLegend.valueAxis.strictMinMax = false;
+  heatLegend.valueAxis.fontSize = 9;
+  heatLegend.valueAxis.logarithmic = true;
+  
+
+  // Configure series tooltip
+  var polygonTemplate = polygonSeries.mapPolygons.template;
+  polygonTemplate.tooltipText = "{name}: {value}";
+  polygonTemplate.nonScalingStroke = true;
+  polygonTemplate.strokeWidth = 0.5;
+
+  // Create hover state and set alternative fill color
+  var hs = polygonTemplate.states.create("hover");
+  hs.properties.fill = am4core.color("#ffba57");
+
+
+  // heat legend behavior
+  polygonSeries.mapPolygons.template.events.on("over", function (event) {
+  handleHover(event.target);
+  })
+
+  polygonSeries.mapPolygons.template.events.on("hit", function (event) {
+  handleHover(event.target);
+  })
+
+  function handleHover(column) {
+  if (!isNaN(column.dataItem.value)) {
+    heatLegend.valueAxis.showTooltipAt(column.dataItem.value)
+  }
+  else {
+    heatLegend.valueAxis.hideTooltip();
+  }
+  }
+
+  polygonSeries.mapPolygons.template.events.on("out", function (event) {
+  heatLegend.valueAxis.hideTooltip();
+  })
+}
+
+map_region_contagi_data();

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
@@ -11,6 +11,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from flask_migrate import Migrate
 
 from flask_fontawesome import FontAwesome
+from datetime import date, datetime
 
 import os
 import json
@@ -19,6 +20,8 @@ import pandas as pd
 
 from tools.get_last_data import get_last_data
 from tools.get_last_regioni import get_last_regioni
+from tools.get_andamento_regioni_storico import get_andamento_regioni_storico
+from tools.get_andamento_regioni_storico import get_andamento_regioni_storico_giorno
 from tools.get_andamento_nazionale import get_andamento_nazionale
 from tools.get_region_vaccine_last import get_region_vaccine_last
 
@@ -113,7 +116,7 @@ def signup():
     return render_template('signup.html', form=form)
 
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
     last_data = get_last_data()
@@ -127,6 +130,15 @@ def dashboard():
     tamponi_test_molecolare = last_data["tamponi_test_molecolare"][0]
     tamponi_test_antigenico_rapido = last_data["tamponi_test_antigenico_rapido"][0]
     deceduti = last_data["deceduti"][0]
+    
+    
+    if request.method == 'POST':
+        giorno = request.form.get("data", None)
+    else:
+        giorno = str(date.today())
+        
+        
+    andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno); #è un json
         
     regioni = get_last_regioni() #è un json
     regioni_vaccini = get_region_vaccine_last() #è un json
@@ -144,9 +156,58 @@ def dashboard():
                            isolamento_domiciliare = isolamento_domiciliare,
                            deceduti = deceduti,
                            regioni=regioni,
+                           andamento_regioni_storico_giorno = andamento_regioni_storico_giorno,
+                           giorno = giorno,
                            regioni_vaccini = regioni_vaccini,
                            totale_vaccinati = totale_vaccinati,
                            andamento_nazionale = andamento_nazionale)
+    
+@app.route('/regioni', methods=['GET', 'POST'])
+@login_required
+def regioni():
+    last_data = get_last_data()
+    update = last_data['data'][0]
+    total_positive = last_data['totale_positivi_test_molecolare'][0]
+    ricoverati_con_sintomi = last_data['ricoverati_con_sintomi'][0]
+    terapia_intensiva = last_data['terapia_intensiva'][0]
+    isolamento_domiciliare = last_data['isolamento_domiciliare'][0]
+    totale_positivi_test_molecolare = last_data["totale_positivi_test_molecolare"][0]
+    totale_positivi_test_antigenico_rapido = last_data["totale_positivi_test_antigenico_rapido"][0]
+    tamponi_test_molecolare = last_data["tamponi_test_molecolare"][0]
+    tamponi_test_antigenico_rapido = last_data["tamponi_test_antigenico_rapido"][0]
+    deceduti = last_data["deceduti"][0]
+    
+    
+    if request.method == 'POST':
+        giorno = request.form.get("data", None)
+    else:
+        giorno = str(date.today())
+        
+        
+    andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno); #è un json
+        
+    regioni = get_last_regioni() #è un json
+    regioni_vaccini = get_region_vaccine_last() #è un json
+    
+    totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
+
+    
+    andamento_nazionale = get_andamento_nazionale()
+    return render_template('regioni.html', name=current_user.username, total_positive = total_positive, update=update,
+                           ricoverati_con_sintomi=ricoverati_con_sintomi, terapia_intensiva=terapia_intensiva,
+                           totale_positivi_test_molecolare = totale_positivi_test_molecolare, 
+                           totale_positivi_test_antigenico_rapido = totale_positivi_test_antigenico_rapido,
+                           tamponi_test_molecolare = tamponi_test_molecolare,
+                           tamponi_test_antigenico_rapido = tamponi_test_antigenico_rapido,
+                           isolamento_domiciliare = isolamento_domiciliare,
+                           deceduti = deceduti,
+                           regioni=regioni,
+                           andamento_regioni_storico_giorno = andamento_regioni_storico_giorno,
+                           giorno = giorno,
+                           regioni_vaccini = regioni_vaccini,
+                           totale_vaccinati = totale_vaccinati,
+                           andamento_nazionale = andamento_nazionale)
+
 
 @app.route('/logout')
 @login_required
