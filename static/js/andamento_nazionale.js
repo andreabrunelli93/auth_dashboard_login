@@ -113,6 +113,43 @@ var ctx = document.getElementById('andamento_indici').getContext('2d');
         options: {}
     });
 
+    var ctx = document.getElementById('andamento_regioni').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: data_andamento,
+            datasets: [{
+                label: 'Totale Positivi',
+                borderColor: '#4680ff',
+                fill: false,
+                pointRadius: 1,
+                data: totale_positivi,
+            }, 
+            {
+                label: 'Terapie intensive',
+                borderColor: '#ff5252',
+                fill: false,
+                pointRadius: 1,
+                data: terapia_intensiva
+            },
+            {
+                label: 'Probabili positivi',
+                borderColor: '#ffba57',
+                fill: false,
+                pointRadius: 1,
+                data: probabili_positivi
+            },
+        ]
+        
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+
 
 
     

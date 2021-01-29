@@ -187,11 +187,21 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Percentuale di positivi sulla popolazione regionale</h5>
-                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <h5 class="mb-3">Positivi per regione in data {{ giorno }}</h5>
+                                    <span class="text-muted m-l-10 f-14"> Stai visualizzando la data: {{ giorno }}</span>
                                     <div id="power-card-chart3"></div>
-                                    <div id="map_region_relative" style="height: 500px;"></div>
+                                    <div id="map_region_contagi_data" style="height: 500px;"></div>
                                 </div>
+                                
+                                <form action="/regioni" method="post" class="form">
+                                    <div class="it-datepicker-wrapper col-sm-6">
+                                        <div class="form-group">
+                                          <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
+                                          <input class="form-control it-date-datepicker" id="data" name="data" type="text" placeholder="inserisci la data in formato yyyy-mm-gg">
+                                        </div>
+                                      </div>
+                                  </form>
+                                
                             </div>
                         </div>
                     </div>
@@ -221,28 +231,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-12">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="mb-3">Positivi per regione in data</h5>
-                                    <span class="text-muted m-l-10 f-14"> Stai visualizzando la data: {{ giorno }}</span>
-                                    <div id="power-card-chart3"></div>
-                                    <div id="map_region_contagi_data" style="height: 500px;"></div>
-                                </div>
-                                
-                                <form action="/regioni" method="post" class="form">
-                                    <div class="it-datepicker-wrapper col-sm-6">
-                                        <div class="form-group">
-                                          <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
-                                          <input class="form-control it-date-datepicker" id="data" name="data" type="text" placeholder="inserisci la data in formato yyyy-mm-gg">
-                                        </div>
-                                      </div>
-                                  </form>
-                                
-                            </div>
-                        </div>
-                    </div>
+                    
 
                 </div>
               
