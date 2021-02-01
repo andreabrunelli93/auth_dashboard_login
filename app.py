@@ -3,6 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
+#from flask.ext.socketio import SocketIO, emit
 
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -35,6 +36,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "questaèlachiavesegreta"
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
+#socketio = SocketIO(app)
 fa = FontAwesome(app)
 Bootstrap(app)
 db = SQLAlchemy(app)
