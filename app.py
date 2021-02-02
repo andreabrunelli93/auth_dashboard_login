@@ -192,8 +192,8 @@ def regioni():
     else:
         giorno = str(date.today())     
         
-        
-    andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno); #è un json
+    andamento_regioni_storico = get_andamento_regioni_storico()
+    andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno) #è un json
         
     regioni = get_last_regioni() #è un json
     regioni_vaccini = get_region_vaccine_last() #è un json
@@ -214,6 +214,7 @@ def regioni():
                            isolamento_domiciliare = isolamento_domiciliare,
                            deceduti = deceduti,
                            regioni=regioni,
+                           andamento_regioni_storico = andamento_regioni_storico,
                            andamento_regioni_storico_giorno = andamento_regioni_storico_giorno,
                            giorno = giorno,
                            regioni_vaccini = regioni_vaccini,

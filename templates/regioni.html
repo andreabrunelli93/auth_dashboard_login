@@ -168,6 +168,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Andamento regioni</h5>
+                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
+                                    <canvas class="my-4 w-120" id="andamento_regioni"></canvas>
+                                    <p>Andamento delle regioni</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
@@ -233,8 +245,6 @@
                         </div>
                     </div>
 
-
-
                 </div>
 
             </div>
@@ -252,6 +262,8 @@
         regioni_vaccini = JSON.parse(regioni_vaccini);
         var andamento_regioni_storico_giorno = {{ andamento_regioni_storico_giorno | tojson}};
         andamento_regioni_storico_giorno = JSON.parse(andamento_regioni_storico_giorno);
+        var andamento_regioni_storico = {{ andamento_regioni_storico | tojson }};
+        andamento_regioni_storico = JSON.parse(andamento_regioni_storico);
 
         $(document).ready(function () {
             $('form').submit(function (e) {
