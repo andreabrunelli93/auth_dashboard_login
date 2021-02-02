@@ -1,9 +1,8 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField
 from wtforms.validators import InputRequired, Email, Length
-#from flask.ext.socketio import SocketIO, emit
 
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -36,7 +35,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "questaèlachiavesegreta"
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 
-#socketio = SocketIO(app)
 fa = FontAwesome(app)
 Bootstrap(app)
 db = SQLAlchemy(app)
@@ -145,8 +143,10 @@ def dashboard():
     regioni = get_last_regioni() #è un json
     regioni_vaccini = get_region_vaccine_last() #è un json
     
-    totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
-
+    try:
+        totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
+    except:
+        totale_vaccinati = 1
     
     andamento_nazionale = get_andamento_nazionale()
     return render_template('dashboard.html', name=current_user.username, total_positive = total_positive, update=update,
@@ -181,9 +181,16 @@ def regioni():
     
     
     if request.method == 'POST':
-        giorno = request.form.get("data", None)
+        giorno = request.form['giorno'] 
+        print(giorno)
+        try:
+            andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno)
+            return andamento_regioni_storico_giorno
+        except:
+            andamento_regioni_storico_giorno = 1
+            return andamento_regioni_storico_giorno
     else:
-        giorno = str(date.today())
+        giorno = str(date.today())     
         
         
     andamento_regioni_storico_giorno = get_andamento_regioni_storico_giorno(giorno); #è un json
@@ -191,7 +198,10 @@ def regioni():
     regioni = get_last_regioni() #è un json
     regioni_vaccini = get_region_vaccine_last() #è un json
     
-    totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
+    try:
+        totale_vaccinati = (sum(map(lambda x: int(x['dosi_somministrate']), json.loads(regioni_vaccini))) / 2 )
+    except:
+        totale_vaccinati = 1
 
     
     andamento_nazionale = get_andamento_nazionale()
@@ -209,7 +219,6 @@ def regioni():
                            regioni_vaccini = regioni_vaccini,
                            totale_vaccinati = totale_vaccinati,
                            andamento_nazionale = andamento_nazionale)
-
 
 @app.route('/logout')
 @login_required

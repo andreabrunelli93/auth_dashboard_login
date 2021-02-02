@@ -128,7 +128,8 @@
                                 <div class="card-footer bg-c-green">
                                     <div class="row align-items-center">
                                         <div class="col-9">
-                                            <p class="text-white m-b-0">{{ "%.2f"|format((totale_vaccinati / 60317000)*100) }}% degli italiani</p>
+                                            <p class="text-white m-b-0">{{ "%.2f"|format((totale_vaccinati /
+                                                60317000)*100) }}% degli italiani</p>
                                         </div>
                                         <div class="col-3 text-right">
                                             <i class="feather icon-trending-up text-white f-16"></i>
@@ -188,20 +189,21 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h5 class="mb-3">Positivi per regione in data {{ giorno }}</h5>
-                                    <span class="text-muted m-l-10 f-14"> Stai visualizzando la data: {{ giorno }}</span>
+                                    <span class="text-muted m-l-10 f-14"> Stai visualizzando la data: {{ giorno
+                                        }}</span>
                                     <div id="power-card-chart3"></div>
                                     <div id="map_region_contagi_data" style="height: 500px;"></div>
                                 </div>
-                                
-                                <form action="/regioni" method="post" class="form">
+
+                                <form action="/regioni" method="post" class="form" id="get-regioni-data">
                                     <div class="it-datepicker-wrapper col-sm-6">
                                         <div class="form-group">
-                                          <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
-                                          <input class="form-control it-date-datepicker" id="data" name="data" type="text" placeholder="inserisci la data in formato yyyy-mm-gg">
+                                            <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
+                                            <input class="form-control it-date-datepicker" id="data_input" name="data_input"
+                                                type="text" placeholder="inserisci la data in formato yyyy-mm-gg">
                                         </div>
-                                      </div>
-                                  </form>
-                                
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -231,17 +233,17 @@
                         </div>
                     </div>
 
-                    
+
 
                 </div>
-              
+
             </div>
             <!-- [ Main Content ] end -->
         </div>
     </div>
 
 
-    
+
 
     <script>
         var andamento_nazionale = {{ andamento_nazionale| tojson  }};
@@ -250,12 +252,27 @@
         regioni_vaccini = JSON.parse(regioni_vaccini);
         var andamento_regioni_storico_giorno = {{ andamento_regioni_storico_giorno | tojson}};
         andamento_regioni_storico_giorno = JSON.parse(andamento_regioni_storico_giorno);
-        
-        $(document).ready(function() {
-            $('.it-date-datepicker').datepicker({
-              inputFormat: ["yyyy-mm-gg"],
-              outputFormat: 'yyyy-mm-gg',
+
+        $(document).ready(function () {
+            $('form').submit(function (e) {
+                //prevent submit
+                e.preventDefault(); //Thx @alex
+
+                //do things on submit
+                $.ajax({
+                    data: {'giorno' : $('#data_input').val()},
+                    type: "POST",
+                    url: "{{ url_for('regioni') }}",
+                }).done(function (data) {
+
+                    andamento_regioni_storico_giorno = JSON.parse(data)
+                    map_region_contagi_data();
+
+                }).always(function (data) {
+                    console.log(data)
+                });
             });
+
         });
     </script>
 
