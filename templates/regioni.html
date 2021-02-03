@@ -142,46 +142,6 @@
                     </div>
                     <!-- page statistic card end -->
                 </div>
-                <div class="row" id="maps">
-                    <div class="col-lg-6 col-md-12">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="mb-3">Indici di rapporto tra Totale Positivi e Terapie Intensive</h5>
-                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
-                                    <div id="power-card-chart3"></div>
-                                    <canvas class="my-4 w-120" id="andamento_indici"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="mb-3">Probabili positivi</h5>
-                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
-                                    <canvas class="my-4 w-120" id="andamento_probabile"></canvas>
-                                    <p>Probabili positivi sulla base del rapporto Positivi / Terapie intensive su un
-                                        lasso di tempo più affidabile (Luglio ->)</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="mb-3">Andamento regioni</h5>
-                                    <span class="text-muted m-l-10 f-14">{{ update }}</span>
-                                    <canvas class="my-4 w-120" id="andamento_regioni"></canvas>
-                                    <p>Andamento delle regioni</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 
                 <div class="row">
                     <div class="col-lg-6 col-md-12">
@@ -232,19 +192,22 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6 col-md-12">
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-lg- col-md-12">
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Percentuale (%) di popolazione vaccinata (2 dosi) per regione</h5>
+                                    <h5 class="mb-3">Andamento regioni</h5>
                                     <span class="text-muted m-l-10 f-14">{{ update }}</span>
-                                    <div id="power-card-chart3"></div>
-                                    <div id="map_region_vaccini_relative" style="height: 500px;"></div>
+                                    <canvas class="my-4 w-120" id="andamento_regioni"></canvas>
+                                    <p>Andamento delle regioni</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
