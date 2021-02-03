@@ -1,24 +1,24 @@
 remap_codes_regioni = [
-    {65: "Abruzzo"},
-    {77: "Basilicata"},
-    {78: "Calabria"},
-    {72: "Campania"},
-    {45: "Emilia-Romagna"},
-    {36: "Friuli-Venezia Giulia"},
-    {62: "Lazio"},
-    {42: "Liguria"},
-    {25: "Lombardia"},
-    {57: "Marche"},
-    {67: "Molise"},
-    {21: "Piemonte"},
-    {75: "Puglia"},
-    {88: "Sardegna"},
-    {82: "Sicilia"},
-    {52: "Toscana"},
-    {32: "Trentino-Alto Adige"},
-    {55: "Umbria"},
-    {23: "Valle dAosta"},
-    {34: "Veneto"}
+    { "nome" : "Abruzzo", "codice": 65, "popolazione" : 1322247, "color": "" },
+    { "nome": "Basilicata", "codice": 77, "popolazione" : 570365, "color": ""},
+    { "nome": "Calabria", "codice": 78, "popolazione" : 1965128, "color": "" },
+    { "nome": "Campania", "codice": 72, "popolazione" :  5839084, "color": ""},
+    { "nome": "Emilia-Romagna", "codice": 45, "popolazione" :  4448841, "color": ""},
+    { "nome": "Friuli-Venezia Giulia", "codice": 36, "popolazione" : 1217872, "color": "" },
+    { "nome": "Lazio", "codice": 62, "popolazione" :  5898124, "color": ""},
+    { "nome": "Liguria", "codice": 42, "popolazione" : 1565307, "color": "" },
+    { "nome": "Lombardia", "codice": 25, "popolazione" : 10018806 , "color": ""},
+    { "nome": "Marche", "codice": 57, "popolazione" : 1538055, "color": "" },
+    { "nome": "Molise", "codice": 67, "popolazione" : 310449, "color": "" },
+    { "nome": "Piemonte", "codice": 21, "popolazione" : 4392526, "color": "" },
+    { "nome": "Puglia", "codice": 75, "popolazione" : 4063888, "color": "" },
+    { "nome": "Sardegna", "codice": 88, "popolazione" : 1653135, "color": "" },
+    { "nome": "Sicilia", "codice": 82, "popolazione" : 5056641, "color": "" },
+    { "nome": "Toscana", "codice": 52, "popolazione" : 3742437, "color": "" },
+    { "nome": "Trentino-Alto Adige", "codice": 32, "popolazione" : 1062860, "color": "" },
+    { "nome": "Umbria", "codice": 55, "popolazione" : 888908, "color": "" },
+    { "nome": "Valle dAosta" , "codice": 23, "popolazione" : 126883, "color": "" },
+    { "nome": "Veneto", "codice": 34, "popolazione" : 4907529, "color": "" }
 ]
 
 var data_andamento = [];
@@ -138,26 +138,21 @@ var ctx = document.getElementById('andamento_regioni').getContext('2d');
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
-s
-    // The data for our dataset
+
+    //
     data: {
         labels: data_andamento,
-
-        datasets: [
-
-            remap_codes_regioni.map((regione) => {
-                return {
-                    label: "test",
-                    borderColor: '#4680ff',
-                    fill: false,
-                    pointRadius: 1,
-                    data: andamento_regioni_storico.filter((x) => x['codice_regione'] == regione).map(function (item) { return item['nuovi_positivi'] }),
+        datasets: remap_codes_regioni.map((regione)=>{
+            return{
+                label: regione.nome,
+                borderColor: '#4680ff',
+                fill: false,
+                pointRadius: 1,
+                data: andamento_regioni_storico.filter((x) => x['codice_regione'] == regione.codice).map(function (item) { return item['totale_positivi'] / regione.popolazione })
                 }
-                
-              })
-        ]
-
+        })
     },
+
 
 
     options: {}
