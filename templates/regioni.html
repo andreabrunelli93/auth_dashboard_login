@@ -160,29 +160,6 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Positivi per regione in data {{ giorno }}</h5>
-                                    <span class="text-muted m-l-10 f-14"> Stai visualizzando la data: {{ giorno
-                                        }}</span>
-                                    <div id="power-card-chart3"></div>
-                                    <div id="map_region_contagi_data" style="height: 500px;"></div>
-                                </div>
-
-                                <form action="/regioni" method="post" class="form" id="get-regioni-data">
-                                    <div class="it-datepicker-wrapper col-sm-6">
-                                        <div class="form-group">
-                                            <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
-                                            <input class="form-control it-date-datepicker" id="data_input" name="data_input"
-                                                type="text" placeholder="inserisci la data in formato yyyy-mm-gg">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-body">
                                     <h5 class="mb-3">Numero dosi di vaccino somministrate per regione</h5>
                                     <span class="text-muted m-l-10 f-14">{{ update }}</span>
                                     <div id="power-card-chart3"></div>
@@ -191,16 +168,113 @@
                             </div>
                         </div>
                     </div>
-
-                    
-
-                </div>
-                <div class="row">
-                    <div class="col-lg- col-md-12">
+                    <div class="col-lg-6 col-md-12">
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="mb-3">Andamento regioni</h5>
+                                    <h5 class="mb-3">Stai visualizzando la data <span id="data_selezionata"> - scegli la
+                                            data - </span></h5>
+
+                                    <div id="power-card-chart3"></div>
+                                    <div id="map_region_contagi_data" style="height: 500px;"></div>
+                                </div>
+
+                                <form action="/regioni" method="post" class="form" id="get-regioni-data">
+                                    <div class="it-datepicker-wrapper col-sm-6">
+                                        <div class="form-group">
+                                            <label for="date1">Inserisci la data in formato yyyy-mm-gg</label>
+                                            <input class="form-control it-date-datepicker" id="data_input"
+                                                name="data_input" type="text"
+                                                placeholder="inserisci la data in formato yyyy-mm-gg">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <h4 class="text-c-gray"><span id="regione_max_contagi"></span></h4>
+                                        <h6 class="text-muted m-b-0">Regione con più contagi</h6>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span class="fas fa-virus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-c-yellow">
+                                <div class="row align-items-center">
+                                    <div class="col-9">
+                                        <p class="text-white m-b-0"></p>
+                                    </div>
+                                    <div class="col-3 text-right">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <h4 class="text-c-gray"><span id="regione_max_nuovi_contagi"></span></h4>
+                                        <h6 class="text-muted m-b-0">Regione per nuovi contagi</h6>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span class="fas fa-lungs-virus"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-c-blue">
+                                <div class="row align-items-center">
+                                    <div class="col-9">
+                                        <p class="text-white m-b-0"></p>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-8">
+                                        <h4 class="text-c-gray"><span id="regione_max_decessi"></span></h4>
+                                        <h6 class="text-muted m-b-0">Regione per decessi </h6>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <span class="fas fa-praying-hands"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-c-red">
+                                <div class="row align-items-center">
+                                    <div class="col-9">
+                                        <p class="text-white m-b-0"></p>
+                                    </div>
+                                    <div class="col-3 text-right">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="mb-3">Andamento regioni in Percentuale alla popolazione residente (%)</h5>
                                     <span class="text-muted m-l-10 f-14">{{ update }}</span>
                                     <canvas class="my-4 w-120" id="andamento_regioni"></canvas>
                                     <p>Andamento delle regioni</p>
@@ -227,6 +301,12 @@
         andamento_regioni_storico_giorno = JSON.parse(andamento_regioni_storico_giorno);
         var andamento_regioni_storico = {{ andamento_regioni_storico | tojson }};
         andamento_regioni_storico = JSON.parse(andamento_regioni_storico);
+        var regione_max_contagi = 0;
+        var regione_nome_max_contagi = "";
+        var regione_max_nuovi_contagi = 0;
+        var regione_nome_max_nuovi_contagi = "";
+        var regione_max_decessi = 0;
+        var regione_nome_max_decessi = "";
 
         $(document).ready(function () {
             $('form').submit(function (e) {
@@ -235,16 +315,33 @@
 
                 //do things on submit
                 $.ajax({
-                    data: {'giorno' : $('#data_input').val()},
+                    data: { 'giorno': $('#data_input').val() },
                     type: "POST",
                     url: "{{ url_for('regioni') }}",
                 }).done(function (data) {
-
+                    $('#data_selezionata').text($('#data_input').val());
                     andamento_regioni_storico_giorno = JSON.parse(data)
                     map_region_contagi_data();
 
+                    regione_max_contagi = Math.max.apply(Math, andamento_regioni_storico_giorno.map(function (o) { return o['totale_positivi']; }));
+                    regione_nome_max_contagi = andamento_regioni_storico_giorno.filter((x) => x['totale_positivi'] == regione_max_contagi);
+                    regione_nome_max_contagi = regione_nome_max_contagi[0]['denominazione_regione'];
+
+                    regione_max_nuovi_contagi = Math.max.apply(Math, andamento_regioni_storico_giorno.map(function (o) { return o['nuovi_positivi']; }));
+                    regione_nome_max_nuovi_contagi = andamento_regioni_storico_giorno.filter((x) => x['nuovi_positivi'] == regione_max_nuovi_contagi);
+                    regione_nome_max_nuovi_contagi = regione_nome_max_nuovi_contagi[0]['denominazione_regione'];
+
+                    regione_max_decessi = Math.max.apply(Math, andamento_regioni_storico_giorno.map(function (o) { return o['deceduti']; }));
+                    regione_nome_max_decessi = andamento_regioni_storico_giorno.filter((x) => x['deceduti'] == regione_max_decessi);
+                    regione_nome_max_decessi = regione_nome_max_decessi[0]['denominazione_regione'];
+
+                    $('#regione_max_contagi').html('La regione con più contagi è <bold> ' + regione_nome_max_contagi + '</bold> con <bold>' + regione_max_contagi + '</bold> contagi');
+                    $('#regione_max_nuovi_contagi').html('La regione con più nuovi contagi è <b> ' + regione_nome_max_nuovi_contagi + '</b> con <b>' + regione_max_nuovi_contagi + '</b> nuovi contagi');
+                    $('#regione_max_decessi').html('La regione con più decessi è <b> ' + regione_nome_max_decessi + '</b> con <b>' + regione_max_decessi + '</b> decessi');
+
+
                 }).always(function (data) {
-                    console.log(data)
+
                 });
             });
 

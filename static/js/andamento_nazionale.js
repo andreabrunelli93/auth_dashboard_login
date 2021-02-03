@@ -149,6 +149,7 @@ try {
         // The type of chart we want to create
         type: 'line',
 
+        //la parte data sotto, fitra inizialmente le regioni nel json in base al codice, dopodiché cicla con map tutti i dati della regione per l'attributo scelto
         data: {
             labels: data_andamento,
             datasets: remap_codes_regioni.map((regione) => {
